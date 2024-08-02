@@ -39,7 +39,7 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 			case namechar.ErrNotNameChar:
 				return written, nil
 			case io.EOF:
-				return written, nil
+				return written, ErrUnexpectedEOF
 			default:
 				return written, erorr.Errorf("httpsse: problem reading rune for event field 'name': %w", err)
 			}
