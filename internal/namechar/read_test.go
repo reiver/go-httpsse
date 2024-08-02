@@ -377,7 +377,7 @@ func TestRead(t *testing.T) {
 			actual   :=        actualRune
 
 			if expected != actual {
-				t.Errorf("For test #%d, the actual 'size' is not what was expected." , testNumber)
+				t.Errorf("For test #%d, the actual 'rune' is not what was expected." , testNumber)
 				t.Logf("EXPECTED: %q (%U)", expected, expected)
 				t.Logf("ACTUAL:   %q (%U)", actual, actual)
 				continue
