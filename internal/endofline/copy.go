@@ -8,6 +8,10 @@ import (
 	"github.com/reiver/go-utf8"
 )
 
+// Copy copies the 'end-of-line' as defined by the HTTP-SSE specification:
+// https://html.spec.whatwg.org/multipage/server-sent-events.html
+//
+//	end-of-line   = ( cr lf / cr / lf )
 func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err error) {
 	if nil == runescanner {
 		return written, errNilRuneScanner
