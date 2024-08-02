@@ -24,7 +24,7 @@ func Read(runescanner io.RuneScanner) (r rune, size int, err error) {
 
 	if 0 < size && !isValid(r) {
 		e := runescanner.UnreadRune()
-		if nil != err {
+		if nil != e {
 			return r, size, erorr.Errorf("httpsse: problem unreading-rune %q (%U) that might have been a \"name-char\" but was not: %w", r, r, e)
 		}
 
