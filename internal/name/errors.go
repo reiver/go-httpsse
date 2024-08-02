@@ -5,6 +5,7 @@ import (
 )
 
 const (
+	ErrNotName       = erorr.Error("httpsse: not name")
 	ErrUnexpectedEOF = erorr.Error("httpsse: unexpected end-of-file (eof)")
 )
 

@@ -37,6 +37,9 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 		if nil != err {
 			switch err {
 			case namechar.ErrNotNameChar:
+				if written <= 0 {
+					return 0, ErrNotName
+				}
 				return written, nil
 			case io.EOF:
 				return written, ErrUnexpectedEOF
