@@ -1,6 +1,6 @@
 # go-httpsse
 
-Package **httpsse** implements HTTP server sent events, for the Go programming language.
+Package **httpsse** implements HTTP **server-sent events**, for the Go programming language.
 
 As defined by:
 https://html.spec.whatwg.org/multipage/server-sent-events.html
