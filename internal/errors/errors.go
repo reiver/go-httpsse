@@ -1,4 +1,4 @@
-package anychars
+package errors
 
 import (
 	"github.com/reiver/go-erorr"
@@ -9,6 +9,6 @@ const (
 )
 
 const (
-	errNilRuneScanner = erorr.Error("httpsse: nil rune-scanner")
-	errNilWriter      = erorr.Error("httpsse: nil writer")
+	ErrNilRuneScanner = erorr.Error("httpsse: nil rune-scanner")
+	ErrNilWriter      = erorr.Error("httpsse: nil writer")
 )

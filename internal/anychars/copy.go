@@ -7,6 +7,7 @@ import (
 	"github.com/reiver/go-utf8"
 
 	"github.com/reiver/go-httpsse/internal/anychar"
+	"github.com/reiver/go-httpsse/internal/errors"
 )
 
 // Copy copies the 'any-chars' as defined by the HTTP-SSE specification:
@@ -17,10 +18,10 @@ import (
 //	*any-char
 func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err error) {
 	if nil == runescanner {
-		return 0, errNilRuneScanner
+		return 0, errors.ErrNilRuneScanner
 	}
 	if nil == writer {
-		return 0, errNilWriter
+		return 0, errors.ErrNilWriter
 	}
 
 	for {
@@ -39,7 +40,7 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 			case anychar.ErrNotAnyChar:
 				return written, nil
 			case io.EOF:
-				return written, ErrUnexpectedEOF
+				return written, errors.ErrUnexpectedEOF
 			default:
 				return written, erorr.Errorf("httpsse: problem reading rune for event field 'any-chars': %w", err)
 			}

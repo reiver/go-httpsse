@@ -7,7 +7,3 @@ import (
 const (
 	ErrNotAnyChar = erorr.Error("httpsse: not any-char")
 )
-
-const (
-	errNilRuneScanner = erorr.Error("httpsse: nil rune-scanner")
-)

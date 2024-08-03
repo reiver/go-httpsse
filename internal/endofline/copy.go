@@ -6,6 +6,8 @@ import (
 	"github.com/reiver/go-ascii"
 	"github.com/reiver/go-erorr"
 	"github.com/reiver/go-utf8"
+
+	"github.com/reiver/go-httpsse/internal/errors"
 )
 
 // Copy copies the 'end-of-line' as defined by the HTTP-SSE specification:
@@ -14,10 +16,10 @@ import (
 //	end-of-line   = ( cr lf / cr / lf )
 func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err error) {
 	if nil == runescanner {
-		return written, errNilRuneScanner
+		return written, errors.ErrNilRuneScanner
 	}
 	if nil == writer {
-		return written, errNilWriter
+		return written, errors.ErrNilWriter
 	}
 
 	{

@@ -4,6 +4,8 @@ import (
 	"io"
 
 	"github.com/reiver/go-erorr"
+
+	"github.com/reiver/go-httpsse/internal/errors"
 )
 
 
@@ -17,7 +19,7 @@ import (
 // (The next character will be unread.)
 func Read(runescanner io.RuneScanner) (r rune, size int, err error) {
 	if nil == runescanner {
-		return 0, 0, errNilRuneScanner
+		return 0, 0, errors.ErrNilRuneScanner
 	}
 
 	r, size, err = runescanner.ReadRune()

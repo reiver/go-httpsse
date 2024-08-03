@@ -6,6 +6,7 @@ import (
 	"github.com/reiver/go-erorr"
 	"github.com/reiver/go-utf8"
 
+	"github.com/reiver/go-httpsse/internal/errors"
 	"github.com/reiver/go-httpsse/internal/namechar"
 )
 
@@ -17,10 +18,10 @@ import (
 //	1*name-char
 func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err error) {
 	if nil == runescanner {
-		return 0, errNilRuneScanner
+		return 0, errors.ErrNilRuneScanner
 	}
 	if nil == writer {
-		return 0, errNilWriter
+		return 0, errors.ErrNilWriter
 	}
 
 	for {
@@ -42,7 +43,7 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 				}
 				return written, nil
 			case io.EOF:
-				return written, ErrUnexpectedEOF
+				return written, errors.ErrUnexpectedEOF
 			default:
 				return written, erorr.Errorf("httpsse: problem reading rune for event field 'name': %w", err)
 			}
