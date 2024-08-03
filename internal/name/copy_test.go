@@ -17,6 +17,24 @@ func TestCopy(t *testing.T) {
 		ExpectedWritten int64
 	}{
 		{
+			String:                    "name\n",
+			ExpectedString:            "name",
+			ExpectedWritten: int64(len("name")),
+		},
+		{
+			String:                    "name\r",
+			ExpectedString:            "name",
+			ExpectedWritten: int64(len("name")),
+		},
+		{
+			String:                    "name:",
+			ExpectedString:            "name",
+			ExpectedWritten: int64(len("name")),
+		},
+
+
+
+		{
 			String:         "\u0000\r\n",
 			ExpectedString: "\u0000",
 			ExpectedWritten: 1,
