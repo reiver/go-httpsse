@@ -5,5 +5,5 @@ import (
 )
 
 const (
-	ErrNotComment    = erorr.Error("httpsse: not comment")
+	ErrNotComment = erorr.Error("httpsse: not comment")
 )
