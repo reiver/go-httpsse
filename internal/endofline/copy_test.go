@@ -115,6 +115,18 @@ func TestCopy_errNotEndOfLine(t *testing.T) {
 
 
 		{
+			String:   "0",
+		},
+
+
+
+		{
+			String:   "A",
+		},
+
+
+
+		{
 			String:   "a",
 		},
 	}
