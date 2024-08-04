@@ -14,6 +14,16 @@ type Event struct {
 
 var _ EventWriter = &Event{}
 
+// Equal returns whether two events are equal.
+//
+// Two events arer equal if their event-data, event-id, and event-name are all equal.
+func (receiver Event) Equal(that Event) bool {
+	return
+		receiver.EventName() == that.EventName() &&
+		receiver.EventID()   == that.EventID()   &&
+		receiver.EventData() == that.EventData()
+}
+
 // EventID returns the event-ID
 //
 // For example, if this is the event:
