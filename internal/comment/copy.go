@@ -40,6 +40,12 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 		}
 
 		if ':' != r {
+			{
+				e := runescanner.UnreadRune()
+				if nil != err {
+					return 0, erorr.Errorf("httpsse: problem unreading rune (when trying to read 'comment'): %w", e)
+				}
+			}
 			return 0, ErrNotComment
 		}
 	}
