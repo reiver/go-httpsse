@@ -17,7 +17,11 @@ var _ EventWriter = &Event{}
 // Equal returns whether two events are equal.
 //
 // Two events arer equal if their event-data, event-id, and event-name are all equal.
-func (receiver Event) Equal(that Event) bool {
+func (receiver Event) Equal(that EventReader) bool {
+	if nil == that {
+		return false
+	}
+
 	return receiver.EventName() == that.EventName() &&
 	       receiver.EventID()   == that.EventID()   &&
 	       receiver.EventData() == that.EventData()
