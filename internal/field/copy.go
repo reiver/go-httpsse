@@ -33,7 +33,7 @@ func Copy(namewriter io.Writer, valuewriter io.Writer, runescanner io.RuneScanne
 		case nil:
 			// nothing here.
 		case name.ErrNotName:
-			return namewritten, valuewritten, ErrNotFieldBecauseNotName
+			return namewritten, valuewritten, ErrNotField
 		default:
 			return namewritten, valuewritten, err
 		}

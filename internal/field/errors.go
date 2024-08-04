@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	ErrNotFieldBecauseNotName = erorr.Error("httpsse: not field because no name")
+	ErrNotField = erorr.Error("httpsse: not field")
 )
 
 const (
