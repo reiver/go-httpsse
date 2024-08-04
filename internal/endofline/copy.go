@@ -59,6 +59,10 @@ func Copy(writer io.Writer, runescanner io.RuneScanner) (written int64, err erro
 		if nil != err {
 			return written, err
 		}
+
+		if ascii.LF == r0 {
+			return written, nil
+		}
 	}
 
 	{
