@@ -4,7 +4,7 @@ import (
 	"io"
 )
 
-type eventWriter interface {
+type EventWriter interface {
 	io.Writer
 	SetEventName(string)
 	SetEventID(string)
