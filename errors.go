@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	errNilEventWriter        = erorr.Error("httpsse: nil event-writer")
+	errNilEventSetter        = erorr.Error("httpsse: nil event-setter")
 	errNilHTTPResponseHeader = erorr.Error("httpsse: nil http-response-header")
 	errNilHTTPResponseWriter = erorr.Error("httpsse: nil http-response-writer")
 	errNilReceiver           = erorr.Error("httpsse: nil receiver")

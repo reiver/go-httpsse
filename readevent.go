@@ -12,10 +12,10 @@ import (
 	"github.com/reiver/go-httpsse/internal/field"
 )
 
-// readEvent reads a single event, and writes it to the EventWriter.
-func readEvent(eventwriter EventWriter, runescanner io.RuneScanner) error {
-	if nil == eventwriter {
-		return errNilEventWriter
+// readEvent reads a single event, and writes it to the EventSetter.
+func readEvent(eventsetter EventSetter, runescanner io.RuneScanner) error {
+	if nil == eventsetter {
+		return errNilEventSetter
 	}
 	if nil == runescanner {
 		return errNilRuneScanner
@@ -69,12 +69,12 @@ func readEvent(eventwriter EventWriter, runescanner io.RuneScanner) error {
 
 			switch name {
 			case "event":
-				eventwriter.SetEventName(valueBuffer.String())
+				eventsetter.SetEventName(valueBuffer.String())
 			case "id":
-				eventwriter.SetEventID(valueBuffer.String())
+				eventsetter.SetEventID(valueBuffer.String())
 			case "data":
-				io.WriteString(eventwriter, valueBuffer.String())
-				io.WriteString(eventwriter, "\n")
+				io.WriteString(eventsetter, valueBuffer.String())
+				io.WriteString(eventsetter, "\n")
 			case "retry":
 				
 //@TODO

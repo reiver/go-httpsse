@@ -12,7 +12,7 @@ type Event struct {
 	data strings.Builder
 }
 
-var _ EventWriter = &Event{}
+var _ EventSetter = &Event{}
 
 // Equal returns whether two events are equal.
 //
