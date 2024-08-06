@@ -36,11 +36,12 @@ func (receiver *internalRoute) Close() error {
 		return errNilReceiver
 	}
 
+	receiver.safeReadWriter.Set(nil)
 	receiver.waitclosed.Done()
 	return nil
 }
 
-func (receiver *internalRoute) PublishEvent(fn func(io.Writer)error) error {
+func (receiver *internalRoute) PublishEvent(fn func(EventWriter)error) error {
 	if nil == receiver {
 		return errNilReceiver
 	}
@@ -51,7 +52,13 @@ func (receiver *internalRoute) PublishEvent(fn func(io.Writer)error) error {
 	receiver.waitserving.Wait()
 
 	err := receiver.safeReadWriter.Write(func(writer io.Writer)error{
-		err := fn(writer)
+		eventwriter := internalEventWriter{writer}
+
+		err := fn(eventwriter)
+
+		var buffer [1]byte = [1]byte{'\n'}
+		writer.Write(buffer[:])
+
 		return err
 	})
 	return err
@@ -119,7 +126,6 @@ func (receiver *internalRoute) ServeHTTP(responsewriter http.ResponseWriter, req
 		}
 		bufrw.Flush()
 	}
-
 
 	receiver.safeReadWriter.Set(bufrw)
 	receiver.waitserving.Done()

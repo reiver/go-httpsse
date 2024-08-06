@@ -9,5 +9,5 @@ import (
 type Route interface {
 	io.Closer
 	http.Handler
-	PublishEvent(func(io.Writer)error) error
+	PublishEvent(func(EventWriter)error) error
 }
