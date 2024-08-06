@@ -43,11 +43,17 @@ func ServeHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 	httpsse.HeartBeat(4567 * time.Millisecond, route)
 
 	// Spawn this into its own go-routine.
+	//
+	// Having the things writing to the route run in a different go-routine is important
+	// so that the call doesn't block before route.ServeHTTP() is called.
 	go loop(route)
 
 	route.ServeHTTP(responsewriter, request)
 }
 
+// This function isn't important for this example.
+//
+// Your own functions would do something useful.
 func loop(route httpsse.Route) {
 	for {
 		err := route.PublishEvent(func(eventwriter httpsse.EventWriter)error{
