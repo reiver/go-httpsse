@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-erorr"
 	"github.com/reiver/go-utf8"
 )
@@ -20,6 +21,14 @@ func Dial(url string) (Client, error) {
 		}
 		if nil == resp {
 			return nil, errNilHTTPResponse
+		}
+	}
+
+	{
+		var statuscode int = resp.StatusCode
+
+		if http.StatusOK != statuscode {
+			return nil, errhttp.Return(statuscode)
 		}
 	}
 

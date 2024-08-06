@@ -8,3 +8,5 @@ require (
 	github.com/reiver/go-lck v0.0.0-20240805193248-0e30233d682d
 	github.com/reiver/go-utf8 v2.0.2-0.20240806185936-5dd7c5557d34+incompatible
 )
+
+require github.com/reiver/go-errhttp v1.1.1-0.20240513035723-daf47d264c9c
