@@ -9,8 +9,7 @@ import (
 	"github.com/reiver/go-utf8"
 )
 
-func Dial(url string) (Client, error) {
-
+func DialURL(url string) (Client, error) {
 	var resp *http.Response
 	{
 		var err error
@@ -22,6 +21,37 @@ func Dial(url string) (Client, error) {
 		if nil == resp {
 			return nil, errNilHTTPResponse
 		}
+	}
+
+	return dial(resp)
+}
+
+func Dial(httprequest *http.Request) (Client, error) {
+	if nil == httprequest {
+		return nil, errNilHTTPRequest
+	}
+
+	var resp *http.Response
+	{
+		var httpclient http.Client
+
+		var err error
+
+		resp, err = httpclient.Do(httprequest)
+		if nil != err {
+			return nil, err
+		}
+		if nil == resp {
+			return nil, errNilHTTPResponse
+		}
+	}
+
+	return dial(resp)
+}
+
+func dial(resp *http.Response) (Client, error) {
+	if nil == resp {
+		return nil, errNilHTTPResponse
 	}
 
 	{

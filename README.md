@@ -95,7 +95,7 @@ import (
 func main() {
 	const url string = "http://example.com/api/streaming" // REPLACE THIS WITH THE ACTUAL URL.
 
-	client, err := httpsse.Dial(url)
+	client, err := httpsse.DialURL(url)
 	if nil != err {
 		fmt.Printf("ERROR: had problem dialing %q: %s \n", url, err)
 		return
