@@ -11,6 +11,70 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 
 [![GoDoc](https://godoc.org/github.com/reiver/go-httpsse?status.svg)](https://godoc.org/github.com/reiver/go-httpsse)
 
+## Examples
+
+Here is an example _server_:
+
+```golang
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"time"
+
+	"github.com/reiver/go-httpsse"
+)
+
+func main() {
+	var handler http.Handler = http.HandlerFunc(ServeHTTP)
+
+	err := http.ListenAndServe(":8080", handler)
+	if nil != err {
+		panic(err)
+	}
+}
+
+func ServeHTTP(responsewriter http.ResponseWriter, request *http.Request) {
+
+	var route httpsse.Route = httpsse.NewRoute()
+
+	// Send a heartbeat comment every 4.567 seconds.
+	httpsse.HeartBeat(4567 * time.Millisecond, route)
+
+	// Spawn this into its own go-routine.
+	go loop(route)
+
+	route.ServeHTTP(responsewriter, request)
+}
+
+func loop(route httpsse.Route) {
+	for {
+		err := route.PublishEvent(func(eventwriter httpsse.EventWriter)error{
+
+			if nil == eventwriter {
+				panic("nil event-writer")
+			}
+
+			var eventName string = "status"
+			var eventID string = fmt.Sprintf("status-%d", time.Now().Unix())
+			var eventData string = "Hello world!"
+
+			eventwriter.WriteEvent(eventName)
+			eventwriter.WriteID(eventID)
+			eventwriter.WriteData(eventData)
+
+			return nil
+		})
+		if nil != err {
+			fmt.Printf("PUBLISH-EVENT-ERROR: %s \n", err)
+		}
+
+		time.Sleep(2351 * time.Millisecond)
+	}
+}
+```
+
 ## Import
 
 To import package **httpsse** use `import` code like the follownig:
