@@ -13,7 +13,7 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 
 ## Examples
 
-Here is an example _server_:
+Here is an example HTTP SSE _server_:
 
 ```golang
 package main
@@ -79,6 +79,49 @@ func loop(route httpsse.Route) {
 		time.Sleep(2351 * time.Millisecond)
 	}
 }
+```
+
+Here is an example HTTP SSE _client_:
+
+```golang
+package main
+
+import (
+	"fmt"
+
+	"github.com/reiver/go-httpsse"
+)
+
+func main() {
+	const url string = "http://example.com/api/streaming" // REPLACE THIS WITH THE ACTUAL URL.
+
+	client, err := httpsse.Dial(url)
+	if nil != err {
+		fmt.Printf("ERROR: had problem dialing %q: %s \n", url, err)
+		return
+	}
+	if nil == client {
+		fmt.Println("ERROR: nil client")
+		return
+	}
+
+	for client.Next() {
+		var event httpsse.Event
+		err := client.Decode(&event)
+		if nil != err {
+			fmt.Printf("ERROR: had problem trying to decode the event: %s", err)
+			continue
+		}
+
+		// You would probably do something useful once you had the event.
+		fmt.Println("EVENT:\n", event)
+	}
+	if err := client.Err(); nil != err {
+		fmt.Printf("CLIENT-ERROR: %s", err)
+		return
+	}
+}
+
 ```
 
 ## Import
