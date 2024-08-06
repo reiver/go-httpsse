@@ -17,21 +17,21 @@ func TestReadEvent(t *testing.T) {
 		ExpectedEventID string
 		ExpectedEventData string
 	}{
-		{
+		{ // 0
 			String:
 				"event:banana"+"\n"+
 				""            +"\n",
 			ExpectedEventName:"banana",
 			ExpectedEventID:"",
 		},
-		{
+		{ // 1
 			String:
 				"event:banana"+"\r"+
 				""            +"\r",
 			ExpectedEventName:"banana",
 			ExpectedEventID:"",
 		},
-		{
+		{ // 2
 			String:
 				"event:banana"+"\r\n"+
 				""            +"\r\n",
@@ -41,21 +41,21 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 3
 			String:
 				"event: banana"+"\n"+
 				""             +"\n",
 			ExpectedEventName:"banana",
 			ExpectedEventID:"",
 		},
-		{
+		{ // 4
 			String:
 				"event: banana"+"\r"+
 				""             +"\r",
 			ExpectedEventName:"banana",
 			ExpectedEventID:"",
 		},
-		{
+		{ // 5
 			String:
 				"event: banana"+"\r\n"+
 				""             +"\r\n",
@@ -71,7 +71,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 6
 			String:
 				"event:banana"+"\n"+
 				"id:123"      +"\n"+
@@ -79,7 +79,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventName:"banana",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 7
 			String:
 				"event:banana"+"\r"+
 				"id:123"      +"\r"+
@@ -87,7 +87,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventName:"banana",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 8
 			String:
 				"event:banana"+"\r\n"+
 				"id:123"      +"\r\n"+
@@ -98,7 +98,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 9
 			String:
 				"event: banana"+"\n"+
 				"id: 123"      +"\n"+
@@ -106,7 +106,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventName:"banana",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 10
 			String:
 				"event: banana"+"\r"+
 				"id: 123"      +"\r"+
@@ -114,7 +114,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventName:"banana",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 11
 			String:
 				"event: banana"+"\r\n"+
 				"id: 123"      +"\r\n"+
@@ -131,21 +131,21 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 12
 			String:
 				"id:123"      +"\n"+
 				""            +"\n",
 			ExpectedEventName:"",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 13
 			String:
 				"id:123"      +"\r"+
 				""            +"\r",
 			ExpectedEventName:"",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 14
 			String:
 				"id:123"      +"\r\n"+
 				""            +"\r\n",
@@ -155,21 +155,21 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 15
 			String:
 				"id: 123"      +"\n"+
 				""             +"\n",
 			ExpectedEventName:"",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 16
 			String:
 				"id: 123"      +"\r"+
 				""             +"\r",
 			ExpectedEventName:"",
 			ExpectedEventID:"123",
 		},
-		{
+		{ // 17
 			String:
 				"id: 123"      +"\r\n"+
 				""             +"\r\n",
@@ -185,7 +185,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 18
 			String:
 				": I was here"    +"\r\n"+
 				"event: something"+"\r\n"+
@@ -203,7 +203,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 19
 			String:
 				"data: once"   +"\r\n"+
 				"data: twice"  +"\r\n"+
@@ -221,7 +221,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 20
 			String:
 				"id: once"   +"\r\n"+
 				"id: twice"  +"\r\n"+
@@ -235,7 +235,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 21
 			String:
 				"event: once"   +"\r\n"+
 				"event: twice"  +"\r\n"+
@@ -255,7 +255,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 22
 			String:
 				"data: YHOO" +"\r\n"+
 				"data: +2"   +"\r\n"+
@@ -274,7 +274,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 23
 			String:
 				": test stream"      +"\r\n"+
 				""                   +"\r\n"+
@@ -290,7 +290,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"",
 			ExpectedEventData:"",
 		},
-		{
+		{ // 24
 			String:
 				"data: first event"  +"\r\n"+
 				"id: 1"              +"\r\n"+
@@ -304,7 +304,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"1",
 			ExpectedEventData:"first event",
 		},
-		{
+		{ // 25
 			String:
 				"data:second event"  +"\r\n"+
 				"id"                 +"\r\n"+
@@ -315,7 +315,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"",
 			ExpectedEventData:"second event",
 		},
-		{
+		{ // 26
 			String:
 				"data:  third event" +"\r\n"+
 				""                   +"\r\n",
@@ -332,7 +332,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 27
 			String:
 				"data"  +"\r\n"+
 				""      +"\r\n"+
@@ -345,7 +345,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"",
 			ExpectedEventData:"",
 		},
-		{
+		{ // 28
 			String:
 				"data"  +"\r\n"+
 				"data"  +"\r\n"+
@@ -356,7 +356,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"",
 			ExpectedEventData:"\n",
 		},
-		{
+		{ // 29
 			String:
 				"data:" +"\r\n"+
 				""      +"\r\n",
@@ -373,7 +373,7 @@ func TestReadEvent(t *testing.T) {
 
 
 
-		{
+		{ // 30
 			String:
 				"data:test"  +"\r\n"+
 				""           +"\r\n"+
@@ -383,7 +383,7 @@ func TestReadEvent(t *testing.T) {
 			ExpectedEventID:"",
 			ExpectedEventData:"test",
 		},
-		{
+		{ // 31
 			String:
 				"data: test" +"\r\n"+
 				""           +"\r\n",
@@ -440,7 +440,7 @@ func TestReadEvent(t *testing.T) {
 
 		{
 			expected := test.ExpectedEventData
-			actual := event.EventData()
+			actual := event.EventDataCollapsed()
 
 			if expected != actual {
 				t.Errorf("For test #%d, the actual 'event-data' is not what was expected.", testNumber)

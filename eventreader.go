@@ -1,7 +1,8 @@
 package httpsse
 
 type EventReader interface {
-	EventData() string
+	EventData() []string
+	EventDataCollapsed() string
 	EventID() string
 	EventName() string
 }

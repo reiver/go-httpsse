@@ -73,16 +73,11 @@ func readEvent(eventsetter EventSetter, runescanner io.RuneScanner) error {
 			case "id":
 				eventsetter.SetEventID(valueBuffer.String())
 			case "data":
-				io.WriteString(eventsetter, valueBuffer.String())
-				io.WriteString(eventsetter, "\n")
+				eventsetter.AppendEventDatum(valueBuffer.String())
 			case "retry":
-				
-//@TODO
-				
+				//@TODO
 			default:
-				
-//@TODO
-				
+				//@TODO
 			}
 		}
 	}

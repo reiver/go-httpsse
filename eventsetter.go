@@ -1,9 +1,5 @@
 package httpsse
 
-import (
-	"io"
-)
-
 // EventSetter represents an event that can be written to.
 //
 // Use Write to write the event-data.
@@ -18,7 +14,7 @@ import (
 //
 // But you can also use other types, including creating your own, that are EventSetter, and pass it to [Client].Decode
 type EventSetter interface {
-	io.Writer
+	AppendEventDatum(string)
 	SetEventName(string)
 	SetEventID(string)
 }

@@ -9,10 +9,15 @@ import (
 type Event struct {
 	name string
 	id string
-	data strings.Builder
+	data internalField
 }
 
+var _ EventReader = &Event{}
 var _ EventSetter = &Event{}
+
+func (receiver *Event) AppendEventDatum(value string) {
+	receiver.data.Append(value)
+}
 
 // Equal returns whether two events are equal.
 //
@@ -22,9 +27,13 @@ func (receiver Event) Equal(that EventReader) bool {
 		return false
 	}
 
-	return receiver.EventName() == that.EventName() &&
-	       receiver.EventID()   == that.EventID()   &&
-	       receiver.EventData() == that.EventData()
+	return receiver.EventName()          == that.EventName() &&
+	       receiver.EventID()            == that.EventID()   &&
+	       receiver.EventDataCollapsed() == that.EventDataCollapsed()
+}
+
+func (receiver Event) EventData() []string {
+	return receiver.data.Values()
 }
 
 // EventID returns the event-ID
@@ -41,17 +50,13 @@ func (receiver Event) Equal(that EventReader) bool {
 // Then EventID would return:
 //
 //	"once\ntwice\nthrice\nfource"
-func (receiver Event) EventData() string {
+func (receiver Event) EventDataCollapsed() string {
 	var data string = receiver.data.String()
 
 	length := len(data)
 
 	if length <= 0 {
 		return ""
-	}
-
-	if '\n' == data[length-1] {
-		data = data[:length-len("\n")]
 	}
 
 	return data
@@ -151,15 +156,6 @@ func (receiver Event) String() string {
 	return builder.String()
 }
 
-// Write appends event-data.
-func (receiver *Event) Write(p []byte) (int, error) {
-	if nil == receiver {
-		return 0, errNilReceiver
-	}
-
-	return receiver.data.Write(p)
-}
-
 // WriteTo writers the serialized form of the event, as defined by the HTTP-SSE specification:
 // https://html.spec.whatwg.org/multipage/server-sent-events.html
 //
@@ -231,7 +227,7 @@ func (receiver Event) writeto(stringwriter io.StringWriter) {
 	}
 
 	{
-		var eventdata string = receiver.EventData()
+		var eventdata string = receiver.EventDataCollapsed()
 
 		if "" != eventdata {
 			stringwriter.WriteString("data: ")
